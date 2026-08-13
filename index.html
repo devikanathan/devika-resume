@@ -1,1 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devika Nathan — Marketing × Analytics</title>
+<meta name="description" content="Devika Nathan — Business Analytics & Marketing student at Purdue University. Consumer insights, market research, and data-driven marketing strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1EFE6;
+    --paper-2:#E9E6D9;
+    --ink:#17181A;
+    --ink-soft:#3A3B37;
+    --cobalt:#2C4A7C;
+    --cobalt-deep:#1E3357;
+    --rust:#B54834;
+    --line:#C9C4B2;
+    --line-dark:#3F4145;
+    --paper-on-dark: #EFEDE3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--cobalt); color:var(--paper);}
 
+  .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+  @media (max-width:720px){ .wrap{padding:0 22px;} }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cobalt);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px; background:var(--cobalt);
+    display:inline-block;
+  }
+  .eyebrow.on-dark{ color:#8FB0DE; }
+  .eyebrow.on-dark::before{ background:#8FB0DE; }
+
+  h1,h2,h3,h4{ font-family:'Fraunces', serif; font-weight:450; line-height:1.05; letter-spacing:-0.01em;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--cobalt);
+    outline-offset:3px;
+  }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(241,239,230,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    transition:transform .35s ease;
+  }
+  header.hide{ transform:translateY(-100%); }
+  .nav{
+    max-width:1180px; margin:0 auto; padding:16px 40px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  @media (max-width:720px){ .nav{padding:14px 22px;} }
+  .nav-name{
+    font-family:'Fraunces', serif; font-size:18px; font-weight:500;
+  }
+  .nav-links{ display:flex; gap:28px; align-items:center; font-size:13px; letter-spacing:0.03em;}
+  .nav-links a{
+    position:relative; padding:4px 0; color:var(--ink-soft);
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--cobalt); transition:width .25s ease;
+  }
+  .nav-links a:hover::after, .nav-links a:hover{ color:var(--ink); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    border:1px solid var(--ink); padding:8px 16px; font-size:13px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .nav-cta:hover{ background:var(--ink); color:var(--paper); }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; }
+  @media (max-width:820px){
+    .nav-links{ display:none; }
+    .nav-toggle{ display:block; }
+  }
+  .mobile-menu{
+    display:none; flex-direction:column; gap:0;
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{
+    padding:16px 22px; border-top:1px solid var(--line); font-size:15px;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    background:var(--ink); color:var(--paper-on-dark);
+    padding:168px 0 90px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute; inset:-10% -10%;
+    background-image:
+      linear-gradient(to right, rgba(239,237,227,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(239,237,227,0.05) 1px, transparent 1px);
+    background-size:56px 56px;
+    pointer-events:none;
+    will-change:transform;
+  }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 5rem);
+    max-width:15ch;
+    margin:22px 0 28px;
+    font-weight:450;
+    transform-origin:left top;
+    will-change:transform, opacity;
+  }
+  .hero h1 em{ font-style:italic; color:#8FB0DE; font-weight:400;}
+  .hero-sub{
+    font-size:clamp(1rem, 1.6vw, 1.2rem);
+    max-width:52ch;
+    color:#C7C4B8;
+    margin-bottom:44px;
+    will-change:transform, opacity;
+  }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:64px; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.02em;
+    padding:13px 22px; display:inline-block; border:1px solid currentColor;
+    transition:background .2s ease, color .2s ease;
+  }
+  .btn-primary{ background:var(--paper-on-dark); color:var(--ink); border-color:var(--paper-on-dark); }
+  .btn-primary:hover{ background:transparent; color:var(--paper-on-dark); }
+  .btn-outline{ color:var(--paper-on-dark); }
+  .btn-outline:hover{ background:var(--paper-on-dark); color:var(--ink); }
+  .btn-outline-dark{ color:var(--ink); border-color:var(--ink); }
+  .btn-outline-dark:hover{ background:var(--ink); color:var(--paper); }
+
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    border-top:1px solid var(--line-dark);
+  }
+  .hero-stat{ padding:22px 24px 0; border-left:1px solid var(--line-dark); }
+  .hero-stat:first-child{ border-left:none; padding-left:0; }
+  .hero-stat .num{
+    font-family:'Fraunces', serif; font-size:clamp(1.6rem,3vw,2.4rem); color:var(--paper-on-dark);
+  }
+  .hero-stat .cap{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#9C9A8E;
+    text-transform:uppercase; letter-spacing:0.08em; margin-top:6px;
+  }
+  @media (max-width:640px){
+    .hero-stats{ grid-template-columns:1fr; }
+    .hero-stat{ border-left:none; border-top:1px solid var(--line-dark); padding:18px 0 0; }
+    .hero-stat:first-child{ border-top:none; }
+  }
+
+  section{ padding:100px 0; position:relative; }
+  @media (max-width:720px){ section{ padding:70px 0; } }
+  .section-head{ margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(1.9rem,3.6vw,2.7rem); margin-top:14px; max-width:20ch; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(22px) scale(0.985); transition:opacity .8s cubic-bezier(.16,.8,.24,1), transform .8s cubic-bezier(.16,.8,.24,1); }
+  .reveal.in{ opacity:1; transform:translateY(0) scale(1); }
+
+  /* masked heading reveal */
+  .mask{ overflow:hidden; display:block; }
+  .mask-inner{ display:block; transform:translateY(110%); transition:transform .9s cubic-bezier(.16,.8,.24,1); }
+  .mask.in .mask-inner{ transform:translateY(0); }
+
+  .proj-card{ will-change:transform; }
+
+  /* ============ ABOUT ============ */
+  .about{ border-bottom:1px solid var(--line); }
+  .about-grid{
+    display:grid; grid-template-columns:1.5fr 1fr; gap:64px; align-items:start;
+  }
+  @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+  .about-text p{ font-size:1.12rem; color:var(--ink-soft); margin-bottom:20px; max-width:56ch; }
+  .about-text p:first-of-type::first-letter{
+    font-family:'Fraunces', serif; font-size:3.2em; float:left; line-height:0.8;
+    padding:6px 8px 0 0; color:var(--cobalt); font-weight:500;
+  }
+  .field-notes{
+    border:1px solid var(--line); padding:26px 24px; background:var(--paper-2);
+  }
+  .field-notes .eyebrow{ margin-bottom:16px; }
+  .field-notes dl{ display:grid; grid-template-columns:auto 1fr; gap:10px 16px; }
+  .field-notes dt{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+    text-transform:uppercase; letter-spacing:0.04em; white-space:nowrap; padding-top:2px;
+  }
+  .field-notes dd{ font-size:14.5px; }
+
+  /* ============ EXPERIENCE ============ */
+  .exp-layout{ display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:start; }
+  @media (max-width:900px){ .exp-layout{ grid-template-columns:1fr; gap:12px; } }
+  .exp-sticky{ position:sticky; top:110px; }
+  @media (max-width:900px){ .exp-sticky{ position:static; margin-bottom:36px; } }
+  .exp-sticky h2{ font-size:clamp(1.9rem,3.6vw,2.5rem); margin-top:14px; }
+  .exp-sticky-note{ margin-top:20px; font-size:0.95rem; color:var(--ink-soft); max-width:32ch; padding-top:20px; border-top:1px solid var(--line); }
+  .exp-list{ display:flex; flex-direction:column; }
+  .exp-item{
+    border-top:1px solid var(--line); padding:38px 0;
+    display:grid; grid-template-columns:220px 1fr 200px; gap:32px;
+  }
+  .exp-item:last-child{ border-bottom:1px solid var(--line); }
+  @media (max-width:900px){
+    .exp-item{ grid-template-columns:1fr; gap:12px; }
+  }
+  .exp-role{ font-family:'Fraunces', serif; font-size:1.3rem; }
+  .exp-org{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--cobalt); margin-top:6px; }
+  .exp-date{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft); margin-top:4px; }
+  .exp-desc{ color:var(--ink-soft); font-size:1rem; max-width:56ch; }
+  .exp-metric{
+    align-self:start; text-align:left;
+  }
+  @media (max-width:900px){ .exp-metric{ margin-top:8px; } }
+  .exp-metric .num{ font-family:'Fraunces', serif; font-size:2.1rem; color:var(--rust); line-height:1; }
+  .exp-metric .cap{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); margin-top:6px; text-transform:uppercase; letter-spacing:0.05em; }
+  .exp-item-nometric{ grid-template-columns:220px 1fr; }
+  @media (max-width:900px){ .exp-item-nometric{ grid-template-columns:1fr; } }
+
+  /* ============ PROJECTS ============ */
+  .projects{ background:var(--ink); color:var(--paper-on-dark); }
+  .projects .section-head .eyebrow{ color:#8FB0DE; }
+  .projects .section-head .eyebrow::before{ background:#8FB0DE; }
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-dark); border:1px solid var(--line-dark); }
+  @media (max-width:820px){ .proj-grid{ grid-template-columns:1fr; } }
+  .proj-card{ background:var(--ink); padding:38px 34px; }
+  .proj-card h3{ font-size:1.5rem; margin-bottom:6px; max-width:22ch; }
+  .proj-loc{ font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#9C9A8E; margin-bottom:26px; }
+  .proj-row{ margin-bottom:18px; }
+  .proj-row .lbl{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:#8FB0DE; margin-bottom:6px;
+  }
+  .proj-row p{ color:#C7C4B8; font-size:0.98rem; }
+  .proj-tools{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; border:1px solid var(--line-dark);
+    padding:5px 10px; color:#C7C4B8;
+  }
+  .proj-flow{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px;}
+  .flow-step{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; border:1px solid var(--line-dark);
+    padding:7px 12px; color:var(--paper-on-dark);
+  }
+  .flow-arrow{ color:#8FB0DE; font-size:13px; }
+
+  /* ============ SKILLS ============ */
+  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:900px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .skills-grid{ grid-template-columns:1fr; } }
+  .skill-cat{ background:var(--paper); padding:28px 24px; }
+  .skill-cat h4{ font-size:1rem; font-family:'IBM Plex Mono', monospace; text-transform:uppercase; letter-spacing:0.04em; color:var(--cobalt); margin-bottom:16px; font-weight:500;}
+  .skill-cat ul{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .skill-cat li{ font-size:14.5px; color:var(--ink-soft); padding-left:14px; position:relative; }
+  .skill-cat li::before{ content:"–"; position:absolute; left:0; color:var(--rust); }
+
+  /* ============ LEADERSHIP ============ */
+  .leadership{ border-top:1px solid var(--line); }
+  .lead-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+  @media (max-width:820px){ .lead-grid{ grid-template-columns:1fr; } }
+  .lead-card{ padding:28px; border:1px solid var(--line); background:var(--paper-2); }
+  .lead-card .exp-org{ margin-top:0; }
+  .lead-card h3{ font-family:'Fraunces', serif; font-size:1.2rem; margin:8px 0 4px; }
+  .lead-card p{ color:var(--ink-soft); font-size:0.96rem; margin-top:10px; }
+
+  /* ============ RESUME / CONTACT ============ */
+  .closing{ background:var(--ink); color:var(--paper-on-dark); text-align:left; }
+  .closing .wrap{ display:grid; grid-template-columns:1.3fr 1fr; gap:60px; }
+  @media (max-width:820px){ .closing .wrap{ grid-template-columns:1fr; gap:48px; } }
+  .closing h2{ font-size:clamp(2rem,4.4vw,3.2rem); max-width:16ch; margin-bottom:20px; }
+  .closing p{ color:#C7C4B8; max-width:48ch; margin-bottom:32px; font-size:1.05rem; }
+  .closing-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+  .contact-block{ border-left:1px solid var(--line-dark); padding-left:40px; }
+  @media (max-width:820px){ .contact-block{ border-left:none; padding-left:0; border-top:1px solid var(--line-dark); padding-top:32px; } }
+  .contact-line{ display:flex; flex-direction:column; gap:22px; }
+  .contact-line a{ font-family:'Fraunces', serif; font-size:1.3rem; border-bottom:1px solid transparent; }
+  .contact-line a:hover{ border-color:var(--paper-on-dark); }
+  .contact-line .cap{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:#9C9A8E; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;}
+
+  footer{ background:var(--ink); color:#8B8A7E; padding:22px 0; border-top:1px solid var(--line-dark); }
+  footer .wrap{ display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:11.5px; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <nav class="nav">
+    <a href="#top" class="nav-name">Devika Nathan</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-grid" id="heroGrid"></div>
+    <div class="wrap hero-inner">
+      <div class="eyebrow on-dark">Devika Nathan — West Lafayette, IN</div>
+      <h1 id="heroTitle">Marketing that starts with the data, <em>not the guesswork.</em></h1>
+      <p class="hero-sub" id="heroSub">I'm a double major in Business Analytics &amp; Information Management and Marketing at Purdue's Daniels School of Business. I'm currently an extern with Beats by Dre's Data Analytics Externship program, and I'm generally drawn to the research and strategy side of marketing — using data to actually understand consumers instead of guessing.</p>
+      <div class="hero-ctas">
+        <a href="DevikaNathan_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">View Résumé</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num" data-count="88" data-suffix="%">0%</div><div class="cap">Growth in views, Phi Gamma Nu</div></div>
+        <div class="hero-stat"><div class="num" data-count="66" data-suffix="%">0%</div><div class="cap">Growth in non-follower reach</div></div>
+        <div class="hero-stat"><div class="num">Aug '24</div><div class="cap">Started at Purdue's Daniels School</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">About</div>
+        <h2><span class="mask"><span class="mask-inner">Marketing student with a research habit</span></span></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm a double major in Business Analytics &amp; Information Management and Marketing at Purdue's Daniels School of Business, part of the John Martinsons Honors College and the Data Mine learning community.</p>
+          <p>I'm interested in the research side of marketing — using audience data, keyword metrics, and consumer feedback to actually inform decisions instead of guessing. It's the part of a marketing plan that happens before anyone sees a campaign, and it's the part I find most interesting to work on.</p>
+          <p>Right now that means an externship with Beats by Dre. I've also done digital marketing for my sorority's national organization and worked with Purdue's career services team on student-facing marketing. I'm still early in building these skills, but it's the direction I want to keep growing in.</p>
+        </div>
+        <div class="field-notes reveal">
+          <div class="eyebrow">Field Notes</div>
+          <dl>
+            <dt>School</dt><dd>Purdue University, Daniels School of Business</dd>
+            <dt>Program</dt><dd>B.S., double major: Business Analytics &amp; Information Management and Marketing</dd>
+            <dt>Honors</dt><dd>John Martinsons Honors College · Data Mine</dd>
+            <dt>Based</dt><dd>West Lafayette, IN / Carmel, IN</dd>
+            <dt>Interested in</dt><dd>Consumer insights, market research, data-driven marketing</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="exp-layout">
+        <div class="exp-sticky reveal">
+          <div class="eyebrow">Professional Experience</div>
+          <h2><span class="mask"><span class="mask-inner">Where I've put the research to work</span></span></h2>
+          <p class="exp-sticky-note">Three roles, one thread — using research and audience data to inform marketing decisions.</p>
+        </div>
+
+        <div class="exp-list">
+          <div class="exp-item reveal">
+            <div>
+              <div class="exp-role">Qualitative &amp; Quantitative Insights Extern</div>
+              <div class="exp-org">Beats by Dre — Data Analytics Externship Program</div>
+              <div class="exp-date">June 2026 — Present · Remote</div>
+            </div>
+            <div class="exp-desc">Currently in this externship program, where I'm analyzing consumer feedback and survey data to identify behavior trends and applying qualitative and quantitative research methods to evaluate consumer sentiment. Still early on, and I'm building toward creating visualizations and presentations to communicate what I find.</div>
+            <div class="exp-metric"><div class="num">Ongoing</div><div class="cap">Externship program</div></div>
+          </div>
+
+          <div class="exp-item reveal">
+            <div>
+              <div class="exp-role">Digital Marketing &amp; Content Development Intern</div>
+              <div class="exp-org">Delta Kappa Delta Sorority Inc.</div>
+              <div class="exp-date">Oct 2025 — Jan 2026 · Remote</div>
+            </div>
+            <div class="exp-desc">Ran digital campaigns using audience insights and performance metrics to shape content strategy, and tracked what was and wasn't landing to find ways to grow engagement. Also did a full UX audit of the org's website, flagging usability and design fixes.</div>
+            <div class="exp-metric"><div class="num">1</div><div class="cap">Full site UX audit delivered</div></div>
+          </div>
+
+          <div class="exp-item reveal exp-item-nometric">
+            <div>
+              <div class="exp-role">Summer Extern</div>
+              <div class="exp-org">Purdue Business Career Services</div>
+              <div class="exp-date">June 2025 — Aug 2025 · West Lafayette, IN</div>
+            </div>
+            <div class="exp-desc">Worked on marketing recommendations aimed at student needs, using audience research to help guide the approach around student engagement goals.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Projects</div>
+        <h2><span class="mask"><span class="mask-inner">From raw metrics to a recommendation someone could act on</span></span></h2>
+      </div>
+      <div class="proj-grid reveal">
+        <div class="proj-card">
+          <h3>Consumer Search Insights &amp; Paid Media Strategy</h3>
+          <div class="proj-loc">MGMT 427 · West Lafayette, IN</div>
+          <div class="proj-row">
+            <div class="lbl">Overview</div>
+            <p>A class project focused on turning keyword performance data into a paid media plan.</p>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">What I Did</div>
+            <p>Interpreted keyword metrics — CPC, CTR, and search volume — to identify consumer search trends, then developed paid media recommendations based on that analysis.</p>
+            <div class="proj-flow">
+              <span class="flow-step">Keyword Data</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Search Trend Analysis</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Media Recommendation</span>
+            </div>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">Tools</div>
+            <div class="proj-tools">
+              <span class="tag">Google Keyword Planner</span><span class="tag">Google Ads</span><span class="tag">Excel</span>
+            </div>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">Key Takeaway</div>
+            <p>Learned how to move from raw search metrics to a media recommendation grounded in actual audience behavior.</p>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <h3>GenAI &amp; Business Analytics Strategy</h3>
+          <div class="proj-loc">Purdue Powershift Case Competition · West Lafayette, IN</div>
+          <div class="proj-row">
+            <div class="lbl">Overview</div>
+            <p>A case competition on how a business should approach adopting generative AI without creating new operational risk.</p>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">What I Did</div>
+            <p>Examined AI adoption challenges and operational risks to help develop a set of strategic recommendations for the case.</p>
+            <div class="proj-flow">
+              <span class="flow-step">Adoption Challenges</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Risk Assessment</span><span class="flow-arrow">→</span>
+              <span class="flow-step">Implementation Plan</span>
+            </div>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">Tools</div>
+            <div class="proj-tools">
+              <span class="tag">Strategic Analysis</span><span class="tag">Case Presentation</span>
+            </div>
+          </div>
+          <div class="proj-row">
+            <div class="lbl">Key Takeaway</div>
+            <p>Presented an implementation plan addressing efficiency, compliance, and stakeholder needs to the competition panel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Skills</div>
+        <h2><span class="mask"><span class="mask-inner">The toolkit behind the recommendations</span></span></h2>
+      </div>
+      <div class="skills-grid reveal">
+        <div class="skill-cat">
+          <h4>Analytics &amp; Data</h4>
+          <ul>
+            <li>Data Visualization</li>
+            <li>Performance Analysis</li>
+            <li>Survey Analysis</li>
+            <li>Power BI</li>
+            <li>Google Analytics</li>
+          </ul>
+        </div>
+        <div class="skill-cat">
+          <h4>Marketing &amp; Research</h4>
+          <ul>
+            <li>Market Research</li>
+            <li>Audience Insights</li>
+            <li>Google Ads</li>
+            <li>Google Keyword Planner</li>
+          </ul>
+        </div>
+        <div class="skill-cat">
+          <h4>Strategy</h4>
+          <ul>
+            <li>Strategic Thinking</li>
+            <li>Problem Solving</li>
+            <li>Communication</li>
+            <li>Collaboration</li>
+          </ul>
+        </div>
+        <div class="skill-cat">
+          <h4>Tools</h4>
+          <ul>
+            <li>Microsoft Excel</li>
+            <li>Power BI</li>
+            <li>Google Analytics</li>
+            <li>Google Ads</li>
+            <li>Figma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="leadership" id="leadership">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Leadership &amp; Involvement</div>
+        <h2><span class="mask"><span class="mask-inner">Outside the internship track</span></span></h2>
+      </div>
+      <div class="lead-grid reveal">
+        <div class="lead-card">
+          <div class="exp-org">Purdue Marketing Association</div>
+          <h3>Project Agent</h3>
+          <div class="exp-date">Sept 2025 — Dec 2025 · West Lafayette, IN</div>
+          <p>Built a Google Ads strategy for a nonprofit client from the ground up — keyword research, audience analysis, and a set of recommendations presented directly to the client.</p>
+        </div>
+        <div class="lead-card">
+          <div class="exp-org">Phi Gamma Nu Business Fraternity</div>
+          <h3>Vice President of Communications</h3>
+          <div class="exp-date">Dec 2025 — Present · West Lafayette, IN</div>
+          <p>Track engagement metrics to guide content decisions — a strategy shift that grew views 88% and reach among non-followers 66%. I keep refining the approach based on what the data says is actually working.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME + CONTACT -->
+  <section class="closing" id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow on-dark">Résumé &amp; Contact</div>
+        <h2><span class="mask"><span class="mask-inner">Let's talk about where insight meets strategy.</span></span></h2>
+        <p>I'm looking for marketing analytics, consumer insights, market research, and strategy roles — anywhere the data and the decision have to meet in the middle. Reach out, or take a look at the full résumé.</p>
+        <div class="closing-ctas">
+          <a href="DevikaNathan_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">Download Résumé</a>
+          <a href="mailto:nathand@purdue.edu" class="btn btn-outline">Email Me</a>
+        </div>
+      </div>
+      <div class="contact-block reveal">
+        <div class="contact-line">
+          <div>
+            <div class="cap">Email</div>
+            <a href="mailto:nathand@purdue.edu">nathand@purdue.edu</a>
+          </div>
+          <div>
+            <div class="cap">LinkedIn</div>
+            <a href="https://linkedin.com/in/devikanathan" target="_blank" rel="noopener">linkedin.com/in/devikanathan</a>
+          </div>
+          <div>
+            <div class="cap">Phone</div>
+            <a href="tel:5717483992">571-748-3992</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Devika Nathan © 2026</span>
+    <span>Purdue University · Daniels School of Business</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isSmall = () => window.innerWidth <= 820;
+
+  // ---------- mobile menu ----------
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.mobile-menu a').forEach(a=>{
+    a.addEventListener('click', ()=> { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+  });
+
+  // ---------- header hide on scroll ----------
+  let lastY = window.scrollY;
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if(y > lastY && y > 140){ header.classList.add('hide'); }
+    else { header.classList.remove('hide'); }
+    lastY = y;
+  }, { passive:true });
+
+  // ---------- reveal + masked heading reveal ----------
+  const revealEls = document.querySelectorAll('.reveal, .mask');
+  if(reduceMotion){
+    revealEls.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    revealEls.forEach(el=> io.observe(el));
+  }
+
+  // ---------- count-up numbers ----------
+  const countEls = document.querySelectorAll('[data-count]');
+  function animateCount(el){
+    const target = parseFloat(el.getAttribute('data-count'));
+    const suffix = el.getAttribute('data-suffix') || '';
+    if(reduceMotion){ el.textContent = target + suffix; return; }
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if(countEls.length){
+    const countIo = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ animateCount(e.target); countIo.unobserve(e.target); }
+      });
+    }, { threshold:0.6 });
+    countEls.forEach(el => countIo.observe(el));
+  }
+
+  // ---------- hero parallax + project card parallax (single rAF loop) ----------
+  if(!reduceMotion){
+    const heroSection = document.getElementById('heroSection');
+    const heroGrid = document.getElementById('heroGrid');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSub = document.getElementById('heroSub');
+    const projCards = document.querySelectorAll('.proj-card');
+
+    let ticking = false;
+
+    function update(){
+      const y = window.scrollY;
+      const small = isSmall();
+
+      // hero parallax — only while hero is in view, skipped on small screens for perf/clarity
+      if(heroSection){
+        const heroH = heroSection.offsetHeight;
+        if(y < heroH){
+          const p = Math.min(y / heroH, 1);
+          if(heroGrid) heroGrid.style.transform = `translateY(${y * 0.18}px)`;
+          if(!small){
+            if(heroTitle){
+              heroTitle.style.transform = `translateY(${p * 30}px) scale(${1 - p * 0.06})`;
+              heroTitle.style.opacity = `${1 - p * 1.3}`;
+            }
+            if(heroSub){
+              heroSub.style.transform = `translateY(${p * 46}px)`;
+              heroSub.style.opacity = `${1 - p * 1.6}`;
+            }
+          }
+        }
+      }
+
+      // subtle depth parallax on project cards, desktop only
+      if(!small && projCards.length){
+        const vh = window.innerHeight;
+        projCards.forEach((card, i) => {
+          const rect = card.getBoundingClientRect();
+          if(rect.bottom < -200 || rect.top > vh + 200) return; // skip offscreen
+          const center = rect.top + rect.height / 2 - vh / 2;
+          const factor = i % 2 === 0 ? 0.035 : -0.045;
+          const offset = Math.max(-26, Math.min(26, center * factor));
+          card.style.transform = `translateY(${offset}px)`;
+        });
+      }
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if(!ticking){
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive:true });
+
+    window.addEventListener('resize', () => { requestAnimationFrame(update); }, { passive:true });
+    update();
+  }
+})();
+</script>
+</body>
+</html>
