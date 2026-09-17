@@ -114,13 +114,14 @@
     padding:16px 22px; border-top:1px solid var(--line); font-size:15px;
   }
 
-  /* ============ HERO ============ */
+/* ============ HERO ============ */
   .hero{
     background:var(--ink); color:var(--paper-on-dark);
     padding:168px 0 90px;
     position:relative;
     overflow:hidden;
   }
+
   .hero-grid{
     position:absolute; inset:-10% -10%;
     background-image:
@@ -130,7 +131,34 @@
     pointer-events:none;
     will-change:transform;
   }
-  .hero-inner{ position:relative; z-index:2; }
+
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.35fr 0.65fr;
+    gap:70px;
+    align-items:center;
+  }
+
+  .hero-content{
+    min-width:0;
+  }
+
+  .hero-photo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .hero-photo img{
+    width:100%;
+    max-width:340px;
+    aspect-ratio:4 / 5;
+    object-fit:cover;
+    border-radius:2px;
+  }
+
   .hero h1{
     font-size:clamp(2.4rem, 6vw, 5rem);
     max-width:15ch;
@@ -139,7 +167,13 @@
     transform-origin:left top;
     will-change:transform, opacity;
   }
-  .hero h1 em{ font-style:italic; color:#8FB0DE; font-weight:400;}
+
+  .hero h1 em{
+    font-style:italic;
+    color:#8FB0DE;
+    font-weight:400;
+  }
+
   .hero-sub{
     font-size:clamp(1rem, 1.6vw, 1.2rem);
     max-width:52ch;
@@ -147,39 +181,116 @@
     margin-bottom:44px;
     will-change:transform, opacity;
   }
-  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:64px; }
+
+  .hero-ctas{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:64px;
+  }
+
   .btn{
-    font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.02em;
-    padding:13px 22px; display:inline-block; border:1px solid currentColor;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.02em;
+    padding:13px 22px;
+    display:inline-block;
+    border:1px solid currentColor;
     transition:background .2s ease, color .2s ease;
   }
-  .btn-primary{ background:var(--paper-on-dark); color:var(--ink); border-color:var(--paper-on-dark); }
-  .btn-primary:hover{ background:transparent; color:var(--paper-on-dark); }
-  .btn-outline{ color:var(--paper-on-dark); }
-  .btn-outline:hover{ background:var(--paper-on-dark); color:var(--ink); }
-  .btn-outline-dark{ color:var(--ink); border-color:var(--ink); }
-  .btn-outline-dark:hover{ background:var(--ink); color:var(--paper); }
+
+  .btn-primary{
+    background:var(--paper-on-dark);
+    color:var(--ink);
+    border-color:var(--paper-on-dark);
+  }
+
+  .btn-primary:hover{
+    background:transparent;
+    color:var(--paper-on-dark);
+  }
+
+  .btn-outline{
+    color:var(--paper-on-dark);
+  }
+
+  .btn-outline:hover{
+    background:var(--paper-on-dark);
+    color:var(--ink);
+  }
+
+  .btn-outline-dark{
+    color:var(--ink);
+    border-color:var(--ink);
+  }
+
+  .btn-outline-dark:hover{
+    background:var(--ink);
+    color:var(--paper);
+  }
 
   .hero-stats{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
     border-top:1px solid var(--line-dark);
   }
-  .hero-stat{ padding:22px 24px 0; border-left:1px solid var(--line-dark); }
-  .hero-stat:first-child{ border-left:none; padding-left:0; }
-  .hero-stat .num{
-    font-family:'Fraunces', serif; font-size:clamp(1.6rem,3vw,2.4rem); color:var(--paper-on-dark);
-  }
-  .hero-stat .cap{
-    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:#9C9A8E;
-    text-transform:uppercase; letter-spacing:0.08em; margin-top:6px;
-  }
-  @media (max-width:640px){
-    .hero-stats{ grid-template-columns:1fr; }
-    .hero-stat{ border-left:none; border-top:1px solid var(--line-dark); padding:18px 0 0; }
-    .hero-stat:first-child{ border-top:none; }
+
+  .hero-stat{
+    padding:22px 24px 0;
+    border-left:1px solid var(--line-dark);
   }
 
-  section{ padding:100px 0; position:relative; }
+  .hero-stat:first-child{
+    border-left:none;
+    padding-left:0;
+  }
+
+  .hero-stat .num{
+    font-family:'Fraunces', serif;
+    font-size:clamp(1.6rem,3vw,2.4rem);
+    color:var(--paper-on-dark);
+  }
+
+  .hero-stat .cap{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:#9C9A8E;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-top:6px;
+  }
+
+  @media (max-width:820px){
+    .hero-inner{
+      grid-template-columns:1fr;
+      gap:40px;
+    }
+
+    .hero-photo{
+      justify-content:flex-start;
+    }
+
+    .hero-photo img{
+      max-width:280px;
+    }
+  }
+
+  @media (max-width:640px){
+    .hero-stats{
+      grid-template-columns:1fr;
+    }
+
+    .hero-stat{
+      border-left:none;
+      border-top:1px solid var(--line-dark);
+      padding:18px 0 0;
+    }
+
+    .hero-stat:first-child{
+      border-top:none;
+    }
+  }
   @media (max-width:720px){ section{ padding:70px 0; } }
   .section-head{ margin-bottom:56px; }
   .section-head h2{ font-size:clamp(1.9rem,3.6vw,2.7rem); margin-top:14px; max-width:20ch; }
@@ -339,12 +450,18 @@
 
 <main id="top">
   <!-- HERO -->
-  <section class="hero" id="heroSection">
-    <div class="hero-grid" id="heroGrid"></div>
-    <div class="wrap hero-inner">
+<section class="hero" id="heroSection">
+  <div class="hero-grid" id="heroGrid"></div>
+
+  <div class="wrap hero-inner">
+
+    <div class="hero-content">
       <div class="eyebrow on-dark">Devika Nathan — West Lafayette, IN</div>
+
       <h1 id="heroTitle">Marketing that starts with the data, <em>not the guesswork.</em></h1>
+
       <p class="hero-sub" id="heroSub">I'm a double major in Business Analytics &amp; Information Management and Marketing at Purdue's Daniels School of Business. I'm currently an extern with Beats by Dre's Data Analytics Externship Program, and I'm interested in marketing analytics, consumer insights, and using data to better understand audiences and inform marketing decisions.</p>
+
       <div class="hero-ctas">
         <a href="./DevikaNathan_Resume.pdf" class="btn btn-primary" target="_blank" rel="noopener">
           View Résumé
@@ -352,13 +469,32 @@
 
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
+
       <div class="hero-stats">
-        <div class="hero-stat"><div class="num" data-count="88" data-suffix="%">0%</div><div class="cap">Increase in views, Phi Gamma Nu</div></div>
-        <div class="hero-stat"><div class="num" data-count="66" data-suffix="%">0%</div><div class="cap">Increase in non-follower reach, Phi Gamma Nu</div></div>
-        <div class="hero-stat"><div class="num">Aug '24</div><div class="cap">Started at Purdue, Daniels School of Business</div></div>
+        <div class="hero-stat">
+          <div class="num" data-count="88" data-suffix="%">0%</div>
+          <div class="cap">Increase in views, Phi Gamma Nu</div>
+        </div>
+
+        <div class="hero-stat">
+          <div class="num" data-count="66" data-suffix="%">0%</div>
+          <div class="cap">Increase in non-follower reach, Phi Gamma Nu</div>
+        </div>
+
+        <div class="hero-stat">
+          <div class="num">Aug '24</div>
+          <div class="cap">Started at Purdue, Daniels School of Business</div>
+        </div>
       </div>
     </div>
-  </section>
+
+    <div class="hero-photo">
+      <img src="./headshot.jpg" alt="Devika Nathan">
+    </div>
+
+  </div>
+</section>
+
 
   <!-- ABOUT -->
   <section class="about" id="about">
